@@ -1,14 +1,21 @@
-import React from "react";
+import { Switch, Route } from "react-router-dom";
+
+import Header from "./components/header";
+import LogIn from "./pages/logIn";
+import Register from "./pages/register";
+
+import "./styles.css";
 
 function App() {
+  console.log(" vevo");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        Learn React
-      </header>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={LogIn} />
+        <Route exact path="/register" component={Register} />
+      </Switch>
     </div>
   );
 }
