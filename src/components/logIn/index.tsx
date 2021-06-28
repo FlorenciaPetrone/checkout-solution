@@ -1,8 +1,14 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useCheckoutState } from "../../utils/checkoutState.original";
+
+import "../register/styles.css";
 
 const LogIn = () => {
+  const { setCustomer, setIsRegistered } = useCheckoutState();
+
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: Yup.object({
@@ -14,6 +20,7 @@ const LogIn = () => {
         .min(7, "Too Short! Minimum length is 7 characters"),
     }),
     onSubmit: (values) => {
+      setCustomer(values);
       console.log(values);
     },
   });
@@ -45,12 +52,15 @@ const LogIn = () => {
             <span className="error-span">{formik.errors.password}</span>
           ) : null}
         </div>
-        <Link to="/delivery-info" className="filled">
+        <Link to="/delivery" className="filled">
           <button type="submit">Log In</button>
         </Link>
-        <Link to="/register">
-          <button className="register-button">Register</button>
-        </Link>
+        <button
+          className="register-button"
+          onClick={() => setIsRegistered(false)}
+        >
+          Register
+        </button>
       </form>
     </div>
   );

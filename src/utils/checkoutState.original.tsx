@@ -1,65 +1,65 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, ReactNode, useState } from "react";
+import defaultState from "./defaultCheckoutState";
 
-type Customer = {
-  gender: string;
-  firstName: string;
-  lastName: string;
+// TYPES
+export type Customer = {
+  gender?: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   birthDate?: string;
+  password: string;
 };
-type Basket = { total: number; tax: number; products: any[] };
 
-type Address = {
+export type Basket = { total: number; tax: number; products: any[] };
+
+export type Address = {
   id: string;
   gender: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   street: string;
-  houseNumber: string;
   additional?: string;
-  zipCode: string;
+  zipcode: string;
   city: string;
-  countryCode: string;
+  country: string;
 };
 
-type CheckoutState = {
+export type CheckoutState = {
   customer: Customer;
   basket: Basket;
   billingAddress: Address;
   shippingAddress: Address;
-  selectedPayment: string;
+  selectedPayment?: string;
 };
 
-type Step = "auth" | "delivery" | "payment" | "confirmation";
+export type Step = "authentication" | "delivery" | "payment" | "confirmation";
 
-type CheckoutStateContextt = {
-  checkoutState: CheckoutState;
+type CheckoutContext = {
+  checkoutState?: CheckoutState;
   currentStep: Step;
+  isRegistered: boolean;
+  setIsRegistered: (state: boolean) => void;
   setCurrentStep: (step: Step) => void;
   setCustomer: (customer: Customer) => void;
   setAddress: (address: Address, kind: "billing" | "shipping") => void;
   setPayment: (paymentMethod: string) => void;
 };
 
-const CheckoutStateContext = createContext<CheckoutStateContextt>({} as any);
+//CONTEXT
+const Context = createContext<CheckoutContext>({} as any);
 
-export const CheckoutStateProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
-  const [currentStep, _setCurrentStep] = useState<Step>("auth");
+export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
+  const [currentStep, _setCurrentStep] = useState<Step>("payment");
+  const [isRegistered, setIsRegistered] = useState(true);
 
   const setCurrentStep = (step: Step) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     _setCurrentStep(step);
   };
 
-  const [checkoutState, setCheckoutState] = useState<CheckoutState>();
-
-  if (!checkoutState) {
-    return null;
-  }
+  const [checkoutState, setCheckoutState] =
+    useState<CheckoutState>(defaultState);
 
   const setCustomer = (customer: Customer) => {
     setCheckoutState({
@@ -82,11 +82,14 @@ export const CheckoutStateProvider = ({
     });
   };
 
+  console.log(checkoutState);
   return (
-    <CheckoutStateContext.Provider
+    <Context.Provider
       value={{
         checkoutState,
         currentStep,
+        isRegistered,
+        setIsRegistered,
         setCurrentStep,
         setCustomer,
         setAddress,
@@ -94,8 +97,8 @@ export const CheckoutStateProvider = ({
       }}
     >
       {children}
-    </CheckoutStateContext.Provider>
+    </Context.Provider>
   );
 };
 
-export const useCheckoutState = () => useContext(CheckoutStateContext);
+export const useCheckoutState = () => useContext(Context);
