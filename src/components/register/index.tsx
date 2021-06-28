@@ -1,9 +1,15 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import { useCheckoutState } from "../../utils/checkoutState.original";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import "./styles.css";
+
 const Register = () => {
+  const { setIsRegistered } = useCheckoutState();
+
   const formik = useFormik({
     initialValues: { firstname: "", lastname: "", email: "", password: "" },
     validationSchema: Yup.object({
@@ -70,9 +76,15 @@ const Register = () => {
             <span className="error-span">{formik.errors.password}</span>
           ) : null}
         </div>
-        <Link to="/delivery-info" className="filled">
+        <Link to="/delivery" className="filled">
           <button type="submit">Register</button>
         </Link>
+        <button
+          className="register-button"
+          onClick={() => setIsRegistered(true)}
+        >
+          Log In
+        </button>
       </form>
     </div>
   );
