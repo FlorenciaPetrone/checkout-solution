@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Step, useCheckoutState } from "../../utils/checkoutState.original";
 import { CapitalizeFirstLetter } from "../../utils/sanitize";
 import classNames from "classnames";
@@ -16,7 +16,13 @@ type StepLineProps = {
   isActive: boolean;
 };
 
-const steps: Step[] = ["authentication", "delivery", "payment", "confirmation"];
+const steps: Step[] = [
+  "authentication",
+  "delivery",
+  "order",
+  "payment",
+  "confirmation",
+];
 
 //ADDITIONAL COMPONENTS
 const Line = ({ isActive }: StepLineProps) => (
@@ -28,6 +34,13 @@ const Line = ({ isActive }: StepLineProps) => (
 );
 
 const StepElement = ({ step, isActive, isCompleted }: StepElemetProps) => {
+  const { setCurrentStep } = useCheckoutState();
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push(`/${step.name}`);
+  };
+
   return (
     <div className="step-container">
       <p
@@ -43,15 +56,13 @@ const StepElement = ({ step, isActive, isCompleted }: StepElemetProps) => {
           })}
         ></span>
       </p>
-      <label>
-        <Link
-          to={`/${step.name}`}
-          className={classNames("step-label", {
-            "step-label-active": isActive,
-          })}
-        >
-          {CapitalizeFirstLetter(step.name)}
-        </Link>
+      <label
+        className={classNames("step-label", {
+          "step-label-active": isActive,
+        })}
+        onClick={() => handleClick()}
+      >
+        {CapitalizeFirstLetter(step.name)}
       </label>
     </div>
   );
