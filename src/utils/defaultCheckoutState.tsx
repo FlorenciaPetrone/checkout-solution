@@ -20,7 +20,6 @@ const basket: Basket = {
 };
 
 const address: Address = {
-  id: "",
   gender: "",
   firstname: "",
   lastname: "",
@@ -34,7 +33,7 @@ const defaultState: CheckoutState = {
   customer,
   basket,
   billingAddress: address,
-  shippingAddress: address,
+  deliveryAddress: address,
 };
 
 export default defaultState;

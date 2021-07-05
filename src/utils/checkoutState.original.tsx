@@ -7,15 +7,13 @@ export type Customer = {
   firstName?: string;
   lastName?: string;
   email: string;
-  birthDate?: string;
   password: string;
 };
 
 export type Basket = { total: number; tax: number; products: any[] };
 
 export type Address = {
-  id: string;
-  gender: string;
+  gender?: string;
   firstname: string;
   lastname: string;
   street: string;
@@ -29,20 +27,23 @@ export type CheckoutState = {
   customer: Customer;
   basket: Basket;
   billingAddress: Address;
-  shippingAddress: Address;
+  deliveryAddress: Address;
   selectedPayment?: string;
 };
 
-export type Step = "authentication" | "delivery" | "payment" | "confirmation";
+export type Step =
+  | "authentication"
+  | "delivery"
+  | "order"
+  | "payment"
+  | "confirmation";
 
 type CheckoutContext = {
   checkoutState?: CheckoutState;
   currentStep: Step;
-  isRegistered: boolean;
-  setIsRegistered: (state: boolean) => void;
   setCurrentStep: (step: Step) => void;
   setCustomer: (customer: Customer) => void;
-  setAddress: (address: Address, kind: "billing" | "shipping") => void;
+  setAddress: (address: Address, kind: "billing" | "delivery") => void;
   setPayment: (paymentMethod: string) => void;
 };
 
@@ -50,8 +51,9 @@ type CheckoutContext = {
 const Context = createContext<CheckoutContext>({} as any);
 
 export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
-  const [currentStep, _setCurrentStep] = useState<Step>("payment");
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [currentStep, _setCurrentStep] = useState<Step>("authentication");
+
+  console.log(currentStep);
 
   const setCurrentStep = (step: Step) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -68,7 +70,7 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const setAddress = (address: Address, kind: "billing" | "shipping") => {
+  const setAddress = (address: Address, kind: "billing" | "delivery") => {
     setCheckoutState({
       ...checkoutState,
       [kind + "Address"]: address,
@@ -88,8 +90,6 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
       value={{
         checkoutState,
         currentStep,
-        isRegistered,
-        setIsRegistered,
         setCurrentStep,
         setCustomer,
         setAddress,

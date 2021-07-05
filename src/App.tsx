@@ -4,7 +4,9 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./components/header";
 import StepperComponent from "./components/stepper";
 
-import Authentication from "./pages/authentication";
+import Authentication from "./pages/authentication-page";
+import Order from "./pages/order-page";
+import Delivery from "./pages/delivery-page";
 
 import "./styles.css";
 
@@ -15,6 +17,8 @@ function App() {
       <StepperComponent />
       <Switch>
         <Route exact path="/authentication" component={Authentication} />
+        <Route path="/order" component={Order} />
+        <Route path="/delivery" component={Delivery} />
       </Switch>
     </div>
   );
