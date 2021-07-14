@@ -11,12 +11,9 @@ const customer: Customer = {
 };
 
 const basket: Basket = {
-  total: 100,
-  tax: 20,
-  products: [
-    { id: "1", name: "short" },
-    { id: "2", name: "jeans" },
-  ],
+  total: 45.9,
+  unit: 1,
+  products: [{ id: "1", name: "handBag" }],
 };
 
 const address: Address = {

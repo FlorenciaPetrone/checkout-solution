@@ -4,8 +4,8 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin: 20px auto 40px;
+  width: 90%;
+  margin: 50px auto 40px;
 }
 
 .step-container {

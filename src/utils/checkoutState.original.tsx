@@ -10,7 +10,7 @@ export type Customer = {
   password: string;
 };
 
-export type Basket = { total: number; tax: number; products: any[] };
+export type Basket = { total: number; unit: number; products: any[] };
 
 export type Address = {
   gender?: string;
@@ -42,6 +42,7 @@ type CheckoutContext = {
   checkoutState?: CheckoutState;
   currentStep: Step;
   setCurrentStep: (step: Step) => void;
+  setCheckoutState: (checkoutState: CheckoutState) => void;
   setCustomer: (customer: Customer) => void;
   setAddress: (address: Address, kind: "billing" | "delivery") => void;
   setPayment: (paymentMethod: string) => void;
@@ -91,6 +92,7 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
         checkoutState,
         currentStep,
         setCurrentStep,
+        setCheckoutState,
         setCustomer,
         setAddress,
         setPayment,

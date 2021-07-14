@@ -5,7 +5,7 @@ import { useCheckoutState } from "../../utils/checkoutState.original";
 
 import "./styles.css";
 
-const Order = () => {
+const YourOrder = () => {
   const { checkoutState } = useCheckoutState();
 
   const deliveryAddress = {
@@ -32,11 +32,10 @@ const Order = () => {
             {deliveryAddress.city} {deliveryAddress.country}
           </h5>
         </div>
-        <span className="line"></span>
-        <CartItem />
       </div>
+      <CartItem />
     </div>
   );
 };
 
-export default Order;
+export default YourOrder;
