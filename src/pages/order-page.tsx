@@ -1,15 +1,15 @@
 import React from "react";
 
 import AddressForm from "../components/addressForm";
-import Order from "../components/order";
+import YourOrder from "../components/order";
 
 import "./pages-styles.css";
 
 const OrderPage: React.FC = () => {
   return (
-    <div className="delivery-container">
+    <div className="order-page-container">
       <AddressForm kind={"billing"} />
-      <Order />
+      <YourOrder />
     </div>
   );
 };

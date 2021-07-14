@@ -7,6 +7,7 @@ import StepperComponent from "./components/stepper";
 import Authentication from "./pages/authentication-page";
 import Order from "./pages/order-page";
 import Delivery from "./pages/delivery-page";
+import Payment from "./pages/payment-page";
 
 import "./styles.css";
 
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/authentication" component={Authentication} />
         <Route path="/order" component={Order} />
         <Route path="/delivery" component={Delivery} />
+        <Route path="/payment" component={Payment} />
       </Switch>
     </div>
   );

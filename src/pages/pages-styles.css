@@ -1,12 +1,27 @@
 .delivery-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
+  display: grid;
+  grid-auto-columns: minmax(100%, 80vw);
+}
+
+.order-page-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-auto-flow: column;
+}
+
+.payment-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-auto-flow: column;
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 900px) {
-  .delivery-container {
-    flex-direction: column-reverse;
+  .order-page-container {
+    grid-auto-flow: row;
+    gap: 1.5rem;
+  }
+
+  .payment-container {
+    grid-auto-flow: row;
   }
 }

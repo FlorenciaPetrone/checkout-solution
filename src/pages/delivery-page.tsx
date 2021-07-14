@@ -4,7 +4,7 @@ import AddressForm from "../components/addressForm";
 
 const Delivery = () => {
   return (
-    <div>
+    <div className="delivery-container">
       <AddressForm kind={"delivery"} />
     </div>
   );
